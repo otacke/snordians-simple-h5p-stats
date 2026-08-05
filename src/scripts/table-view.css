@@ -1,0 +1,85 @@
+@import url('datatables.net-dt');
+@import url('datatables.net-buttons-dt');
+
+.table-separator {
+	border: none;
+	border-top: 1px solid #c3c4c7;
+	margin-block: 1.5rem;
+}
+
+.dt-container {
+	/* Slightly more visible row striping and an accent-tinted hover, instead of plain gray. */
+	--dt-row_alpha-hover: 0.06;
+	--dt-row_alpha-stripe: 0.035;
+	--dt-row_background-hover: 56, 88, 233;
+
+	/* Accent-colored header underline and active sort arrow. */
+	--dt-header_border: 2px solid var(--simpleh5pstats-color-theme);
+	--dt-order-arrow_color-current: var(--simpleh5pstats-color-theme);
+
+	/* Accent-colored pagination for the current page. */
+	--dt-paging-button_background-current: rgba(56, 88, 233, 0.12);
+	--dt-paging-button_background-current-hover: rgba(56, 88, 233, 0.2);
+	--dt-paging-button_background-hover: rgba(56, 88, 233, 0.08);
+	--dt-paging-button_border-current: 1px solid var(--simpleh5pstats-color-theme);
+	--dt-paging-button_border-current-hover: 1px solid var(--simpleh5pstats-color-theme);
+	--dt-paging-button_color-current: var(--simpleh5pstats-color-theme);
+
+	/* Ghost-style toolbar buttons, matching the confirmation dialog's cancel button. */
+	--dtb-button_background: transparent;
+	--dtb-button_background-hover: rgba(56, 88, 233, 0.08);
+	--dtb-button_border: 1px solid transparent;
+	--dtb-button_border-hover: 1px solid transparent;
+	--dtb-button_color: var(--simpleh5pstats-color-theme);
+	--dtb-button_color-hover: var(--simpleh5pstats-color-theme);
+
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 8px rgba(0, 0, 0, 0.06);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1rem;
+
+	.dt-buttons {
+		justify-content: flex-start;
+	}
+
+	thead th {
+		font-weight: 600;
+		letter-spacing: 0.02em;
+	}
+
+	/*
+	 * div.dt-container .dt-input (2 classes) otherwise beats .wp-core-ui select (1 class),
+	 * overriding WP's own padding, which is sized to fit its select-arrow icon.
+	 */
+	.simpleh5pstats-column-filter,
+	.dt-length select {
+		--dt-input_padding: 0 1.5rem 0 0.75rem;
+	}
+
+	/* Reuses DataTables' own .dt-input box (same as the search field) for consistent sizing. */
+	.simpleh5pstats-column-filter {
+		/* .wp-core-ui select caps width at 25rem; nothing else overrides that. */
+		box-sizing: border-box;
+		max-width: none;
+		width: 100%;
+
+		&:focus {
+			outline: 2px solid var(--simpleh5pstats-color-theme);
+			outline-offset: 1px;
+		}
+	}
+}
+
+div.dt-processing {
+	background: #fff;
+	border: var(--dt-body_border);
+	padding: 0.5rem;
+}
+
+.simpleh5pstats-table-top-bar {
+	display: flex;
+	justify-content: space-between;
+}

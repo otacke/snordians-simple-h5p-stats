@@ -1,0 +1,55 @@
+name: Release ZIP Build
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Install potential fixes
+        run: npm audit fix
+
+      - name: Build JavaScript for production
+        run: npm run build
+
+      - name: Set up exclusion list
+        run: |
+          EXCLUSIONS=$(grep -v '^$' .releaseignore | tr '\n' ' ')
+          echo "EXCLUSIONS=${EXCLUSIONS}" >> $GITHUB_ENV
+
+      - name: Create ZIP file
+        run: |
+          ZIP_NAME="snordians-simple-h5p-stats.zip"
+          ZIP_PATH="${RUNNER_TEMP}/${ZIP_NAME}"
+          echo "ZIP_NAME=${ZIP_NAME}" >> $GITHUB_ENV
+          echo "ZIP_PATH=${ZIP_PATH}" >> $GITHUB_ENV
+
+          # Format exclusions for zip command
+          ZIP_EXCLUSIONS=""
+          for item in $EXCLUSIONS; do
+            # Add /* to directories for recursive exclusion
+            if [[ -d "$item" ]]; then
+              ZIP_EXCLUSIONS+=" \"${item}/*\""
+            else
+              ZIP_EXCLUSIONS+=" \"${item}\""
+            fi
+          done
+
+          # Create zip with exclusions
+          eval "zip -r \"$ZIP_PATH\" . -x $ZIP_EXCLUSIONS"
+
+      - name: Upload ZIP to Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ${{ env.ZIP_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

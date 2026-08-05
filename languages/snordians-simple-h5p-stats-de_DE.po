@@ -1,0 +1,175 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SNORDIAN's H5P Themer\n"
+"POT-Creation-Date: 2026-08-05 16:34+0200\n"
+"PO-Revision-Date: 2026-08-05 16:35+0200\n"
+"Last-Translator: Snordians Simple H5P Stats\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x;__;_ex;esc_html__;esc_html_e;esc_attr__;esc_attr_e;_n;_nx;_n_noop;_nx_noop;esc_url__;esc_url_e\n"
+"X-Poedit-SearchPath-0: includes\n"
+"X-Poedit-SearchPath-1: snordians-simple-h5p-stats.php\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: js\n"
+"X-Poedit-SearchPathExcluded-3: assets\n"
+"X-Poedit-SearchPathExcluded-4: github\n"
+
+#: includes/class-ajax-handler.php:215 includes/class-ajax-handler.php:269
+msgid "Security check failed."
+msgstr "Sicherheitsüberprüfung fehlgeschlagen."
+
+#: includes/class-ajax-handler.php:219 includes/class-ajax-handler.php:273
+msgid "You do not have permission to download data."
+msgstr "Du hast keine Erlaubnis zum Herunterladen der Daten."
+
+#: includes/class-database.php:655
+msgid "Content ID"
+msgstr "Inhalts-ID"
+
+#: includes/class-database.php:656
+msgid "Content Title"
+msgstr "Inhaltstitel"
+
+#: includes/class-database.php:657
+msgid "Date"
+msgstr "Datum"
+
+#: includes/class-database.php:658
+msgid "Hits"
+msgstr "Aufrufe"
+
+#: includes/class-database.php:659
+msgid "Total Hits"
+msgstr "Aufrufe insgesamt"
+
+#: includes/class-options.php:73
+msgid ""
+"Please note: Enabling this option may lead to unexpected hits (in high "
+"numbers) if others embed your content somewhere. But maybe that is what you "
+"want."
+msgstr ""
+"Bitte beachte: Das Aktivieren dieser Option kann zu unerwarteten (und "
+"zahlreichen) Zugriffen führen, wenn andere deine Inhalte irgendwo einbetten. "
+"Aber vielleicht ist genau das ja gewünscht."
+
+#: includes/class-options.php:74 includes/class-table-view.php:114
+#: includes/class-table-view.php:154
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: includes/class-options.php:75
+msgid "Enable"
+msgstr "Aktivieren"
+
+#: includes/class-options.php:172
+msgid "Embed support"
+msgstr "Einbetten unterstützen"
+
+#: includes/class-options.php:180
+msgid "Ignore repeated hits"
+msgstr "Wiederholte Aufrufe ignorieren"
+
+#: includes/class-options.php:224
+msgid "Count hits to your content that is embedded on other websites"
+msgstr ""
+"Zähle Aufrufe deiner Inhalte, die auf anderen Websites eingebettet sind"
+
+#: includes/class-options.php:246
+msgid "Count only unique visitors per day"
+msgstr "Zähle Besuchende nur einmal pro Tag"
+
+#: includes/class-table-view.php:86
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr "Zeige _START_ bis _END_ von _TOTAL_ Einträgen"
+
+#: includes/class-table-view.php:87
+msgid "Showing 0 entries"
+msgstr "Zeige 0 Einträge"
+
+#: includes/class-table-view.php:88
+msgid "filtered from _MAX_ total entries"
+msgstr "gefiltert aus insgesamt _MAX_ Einträgen"
+
+#: includes/class-table-view.php:89
+msgid "Show _MENU_ entries"
+msgstr "Zeige _MENU_ Einträge"
+
+#: includes/class-table-view.php:90
+msgid "Loading..."
+msgstr "Lade..."
+
+#: includes/class-table-view.php:91
+msgid "Processing..."
+msgstr "Verarbeite..."
+
+#: includes/class-table-view.php:92
+msgid "Search"
+msgstr "Suche"
+
+#: includes/class-table-view.php:93
+msgid "No matching records found"
+msgstr "Keine passenden Einträge gefunden"
+
+#: includes/class-table-view.php:95
+msgid "First"
+msgstr "Start"
+
+#: includes/class-table-view.php:96
+msgid "Last"
+msgstr "Ende"
+
+#: includes/class-table-view.php:97
+msgid "Next"
+msgstr "Weiter"
+
+#: includes/class-table-view.php:98
+msgid "Previous"
+msgstr "Zurück"
+
+#: includes/class-table-view.php:108 includes/class-table-view.php:138
+msgid "Download"
+msgstr "Herunterladen"
+
+#: includes/class-table-view.php:112 includes/class-table-view.php:152
+msgid "Delete"
+msgstr "Löschen"
+
+#: includes/class-table-view.php:113 includes/class-table-view.php:153
+msgid "Do you really want to delete all the data?"
+msgstr "Willst du wirklich alle Daten löschen?"
+
+#: includes/class-table-view.php:115 includes/class-table-view.php:155
+msgid "OK"
+msgstr "OK"
+
+#: includes/class-table-view.php:116
+msgid "Sorry, something went wrong with deleting the data."
+msgstr "Entschuldige, etwas ist beim Löschen der Daten fehlgeschlagen."
+
+#: includes/class-table-view.php:167
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Dir fehlen die nötigen Rechte, um auf diese Seite zuzugreifen."
+
+#: includes/class-table-view.php:174
+msgid "Simple H5P Stats"
+msgstr "Simple H5P Stats"
+
+#: includes/class-table-view.php:176
+msgid "There is no hit data stored."
+msgstr "Es sind keine Aufrufdaten gespeichert."
+
+#: includes/class-table-view.php:182
+msgid "Aggregated"
+msgstr "Zusammengefasst"
+
+#: includes/class-table-view.php:209
+msgid "Hits by date"
+msgstr "Aufrufe nach Datum"
