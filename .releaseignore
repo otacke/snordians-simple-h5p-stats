@@ -1,10 +1,10 @@
 .git
+.github
 .gitignore
 .npmrc
 .releaseignore
 .stylelintrc.json
 eslint.config.js
-github
 node_modules
 package-lock.json
 package.json
