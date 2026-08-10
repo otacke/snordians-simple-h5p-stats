@@ -25,11 +25,6 @@ class Table_View {
 	 * Register WordPress hooks for stats table admin page.
 	 */
 	public function __construct() {
-		// Only register hooks when on the stats page.
-		if ( 'toplevel_page_simpleh5pstats_options' !== ( $_GET['page'] ?? '' ) ) {
-			return;
-		}
-
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 	}
