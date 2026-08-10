@@ -52,6 +52,7 @@ const NONCE_GET_AGGREGATED_COLUMN_OPTIONS = 'simpleh5pstats_nonce_get_aggregated
 const NONCE_DOWNLOAD_AGGREGATED_TABLE_DATA = 'simpleh5pstats_nonce_download_aggregated_table_data';
 
 require_once( __DIR__ . '/includes/class-ajax-handler.php' );
+require_once( __DIR__ . '/includes/class-capability.php' );
 require_once( __DIR__ . '/includes/class-database.php' );
 require_once( __DIR__ . '/includes/class-options.php' );
 require_once( __DIR__ . '/includes/class-table-view.php' );
@@ -95,7 +96,7 @@ function on_activation() {
 	Options::set_defaults();
 	update_config_file();
 
-	add_capabilities();
+	Capability::add_capabilities();
 	register_daily_cleanup_cron();
 }
 
@@ -133,29 +134,7 @@ function on_uninstall() {
 	Database::delete_tables();
 	Options::delete_options();
 
-	// Remove capabilities
-	global $wp_roles;
-	if ( ! isset( $wp_roles ) ) {
-		$wp_roles = new WP_Roles();
-	}
-
-	$all_roles = $wp_roles->roles;
-	foreach ( $all_roles as $role_name => $role_info ) {
-		$role = get_role( $role_name );
-
-		if ( isset( $role_info['capabilities']['manage_simpleh5pstats_options'] ) ) {
-			$role->remove_cap( 'manage_simpleh5pstats_options' );
-		}
-		if ( isset( $role_info['capabilities']['view_simpleh5pstats_results'] ) ) {
-			$role->remove_cap( 'view_simpleh5pstats_results' );
-		}
-		if ( isset( $role_info['capabilities']['download_simpleh5pstats_results'] ) ) {
-			$role->remove_cap( 'download_simpleh5pstats_results' );
-		}
-		if ( isset( $role_info['capabilities']['delete_simpleh5pstats_results'] ) ) {
-			$role->remove_cap( 'delete_simpleh5pstats_results' );
-		}
-	}
+	Capability::remove_capabilities();
 }
 
 /**
@@ -170,52 +149,6 @@ function update() {
 	Database::build_tables();
 
 	update_option( 'snordians-simple-h5p-stats_version', SNORDIANSSIMPLEH5PSTATS_VERSION );
-}
-
-/**
- * Add default plugin capabilities to all WordPress roles.
- */
-function add_capabilities() {
-	// Add capabilities
-	global $wp_roles;
-	if ( ! isset( $wp_roles ) ) {
-		$wp_roles = new WP_Roles();
-	}
-
-	$all_roles = $wp_roles->roles;
-	foreach ( $all_roles as $role_name => $role_info ) {
-		$role = get_role( $role_name );
-
-		map_capability( $role, $role_info, 'manage_options', 'manage_simpleh5pstats_options' );
-		map_capability( $role, $role_info, 'manage_options', 'view_simpleh5pstats_results' );
-		map_capability( $role, $role_info, 'manage_options', 'download_simpleh5pstats_results' );
-		map_capability( $role, $role_info, 'manage_options', 'delete_simpleh5pstats_results' );
-	}
-}
-
-/**
- * Make sure that role has or hasn't the provided capability depending on existing roles.
- *
- * @param stdClass $role Role object.
- * @param array $role_info Role information.
- * @param string|array $existing_cap Existing capability.
- * @param string $new_cap New capability.
- */
-function map_capability( $role, $role_info, $existing_cap, $new_cap ) {
-	if ( $role->has_cap( $new_cap ) ) {
-		// Already has new cap…
-
-		if ( ! $role->has_cap( $existing_cap ) ) {
-			// But shouldn't have it!
-			$role->remove_cap( $new_cap );
-		}
-	} else {
-		// Doesn't have new cap…
-		if ( $role->has_cap( $existing_cap ) ) {
-			// But should have it!
-			$role->add_cap( $new_cap );
-		}
-	}
 }
 
 /**
