@@ -14,7 +14,8 @@ Simple solution to track hits on H5P content.
 Tracks how many times H5P content is accessed, with optional unique visitor deduplication.
 
 == Installation ==
-Install Simple H5P Stats on your Wordpress instance by uploading the zip file and activate it. Done.
+1) Download snordians-simple-h5p-stats.zip from https://github.com/otacke/snordians-simple-h5p-stats/releases/latest.
+2) Install the plugin on your Wordpress instance by uploading the zip file and activate it. Done.
 
 == Setup ==
 Once activated, the plugin will log hits to all H5P content types that you provide access to on your WordPress blog. However, it will not count calls from admins or from the content creators themselves if logged it in order to not mess with the statistics.
