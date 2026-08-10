@@ -2,6 +2,8 @@
 
 namespace SNORDIANSSIMPLEH5PSTATS;
 
+use SNORDIANSSIMPLEH5PSTATS\Capability;
+
 // as suggested by the WordPress community
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
@@ -23,11 +25,13 @@ class Table_View {
 	 * Register WordPress hooks for stats table admin page.
 	 */
 	public function __construct() {
+		// Only register hooks when on the stats page.
+		if ( 'toplevel_page_simpleh5pstats_options' !== ( $_GET['page'] ?? '' ) ) {
+			return;
+		}
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
-
-		add_action( 'wp_ajax_nopriv_simpleh5pstats_delete_data', 'SNORDIANSSIMPLEH5PSTATS\delete_data' );
-		add_action( 'wp_ajax_simpleh5pstats_delete_data', 'SNORDIANSSIMPLEH5PSTATS\delete_data' );
 	}
 
 	/**
@@ -174,7 +178,7 @@ class Table_View {
 		echo '<h2>' . esc_html__( 'Simple H5P Stats', 'snordians-simple-h5p-stats' ) . '</h2>';
 		if ( 0 === $total_count ) {
 			echo esc_html__( 'There is no hit data stored.', 'snordians-simple-h5p-stats' );
-			wp_die();
+			wp_die( '', 200 );
 		}
 
 		// Use DataTable with server-side processing; tbody is populated via AJAX.

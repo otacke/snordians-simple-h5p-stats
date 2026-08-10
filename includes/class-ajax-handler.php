@@ -2,6 +2,8 @@
 
 namespace SNORDIANSSIMPLEH5PSTATS;
 
+use SNORDIANSSIMPLEH5PSTATS\Capability;
+
 // as suggested by the WordPress community
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
@@ -28,12 +30,8 @@ function sanitize_insert_data_request( array $post ) {
  * Insert hit for given content.
  * /!\ No access control here, because hits of visitors not logged in should also be
  * stored.
- *
- * @param string text Text to be added.
  */
 function insert_data() {
-	global $wpdb;
-
 	if ( ! check_ajax_referer( 'simpleh5pstats_nonce_insert_data', 'nonce', false ) ) {
 		exit( json_encode( 'error' ) );
 	}
@@ -66,9 +64,6 @@ function delete_data() {
 	if ( ! current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ) {
 		exit( json_encode( 'error' ) );
 	}
-
-	// Add hook 'simpleh5pstats_delete_data'
-	do_action( 'simpleh5pstats_delete_data' );
 
 	$response = Database::delete_data();
 	exit( json_encode( $response ) );

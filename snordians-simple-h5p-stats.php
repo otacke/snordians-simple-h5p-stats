@@ -221,9 +221,9 @@ function alter_h5p_scripts( &$scripts, $libraries, $embed_type ) {
 				}
 
 				if ( 'slug' === $split[0] ) {
-					$content_id = Database::get_content_id_by_slug( $split[1] );
-					if ( false !== $content_id ) {
-						return $content_id;
+					$found = Database::get_content_id_by_slug( $split[1] );
+					if ( false !== $found ) {
+						return $found;
 					}
 				}
 
@@ -279,6 +279,8 @@ add_action( 'wp_ajax_simpleh5pstats_download_table_data', 'SNORDIANSSIMPLEH5PSTA
 add_action( 'wp_ajax_simpleh5pstats_get_aggregated_table_data', 'SNORDIANSSIMPLEH5PSTATS\get_aggregated_table_data' );
 add_action( 'wp_ajax_simpleh5pstats_get_aggregated_column_options', 'SNORDIANSSIMPLEH5PSTATS\get_aggregated_column_options_data' );
 add_action( 'wp_ajax_simpleh5pstats_download_aggregated_table_data', 'SNORDIANSSIMPLEH5PSTATS\download_aggregated_table_data' );
+add_action( 'wp_ajax_nopriv_simpleh5pstats_delete_data', 'SNORDIANSSIMPLEH5PSTATS\delete_data' );
+add_action( 'wp_ajax_simpleh5pstats_delete_data', 'SNORDIANSSIMPLEH5PSTATS\delete_data' );
 add_action( 'plugins_loaded', 'SNORDIANSSIMPLEH5PSTATS\simpleh5pstats_load_plugin_textdomain' );
 add_action( 'plugins_loaded', 'SNORDIANSSIMPLEH5PSTATS\update' );
 add_action( 'update_option_siteurl', 'SNORDIANSSIMPLEH5PSTATS\update_config_file', 10, 3 );
