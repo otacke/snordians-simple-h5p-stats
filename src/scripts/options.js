@@ -9,13 +9,13 @@ class SimpleH5PStatsOptionsPage {
    * Constructor.
    */
   constructor() {
-    document.onreadystatechange = () => {
+    document.addEventListener( 'readystatechange', () => {
       if ( 'interactive' !== document.readyState ) {
         return;
       }
 
       this.wireEmbedAllowedCheckbox();
-    };
+    } );
   }
 
   /**

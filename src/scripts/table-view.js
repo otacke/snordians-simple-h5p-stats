@@ -18,8 +18,8 @@ const deleteData = async ( nonce, errorMessage ) => {
       } ),
     } );
 
-    const text = await response.text();
-    if ( '"done"' === text ) {
+    const data = await response.json();
+    if ( response.ok && 'done' === data ) {
       location.reload();
     }
     else {
@@ -54,7 +54,6 @@ const downloadData = ( actionName, nonce ) => {
 
   document.body.appendChild( form );
   form.submit();
-  document.body.removeChild( form );
 };
 
 /**

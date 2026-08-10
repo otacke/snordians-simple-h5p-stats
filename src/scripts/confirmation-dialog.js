@@ -75,6 +75,8 @@ class ConfirmationDialog {
    * @param {function} [callbacks.onConfirm] Callback to be called when user confirmed.
    */
   constructor(params = {}, callbacks = {}) {
+    callbacks.onCancel = callbacks.onCancel ?? (() => {});
+    callbacks.onConfirm = callbacks.onConfirm ?? (() => {});
     this.handleCancel = this.handleCancel.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
     this.update(params, callbacks);
