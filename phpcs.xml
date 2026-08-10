@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="WordPress Core" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+	<file>.</file>
+	<file>./includes</file>
+	<exclude-pattern>/assets/</exclude-pattern>
+	<exclude-pattern>/js/</exclude-pattern>
+	<exclude-pattern>/languages/</exclude-pattern>
+	<exclude-pattern>/node_modules/</exclude-pattern>
+	<exclude-pattern>/src/</exclude-pattern>
+	<exclude-pattern>/styles/</exclude-pattern>
+	<exclude-pattern>eslint.config.js</exclude-pattern>
+	<exclude-pattern>webpack.config.js</exclude-pattern>
 
 	<description>Non-controversial generally-agreed upon WordPress Coding Standards</description>
-
-	<!-- Only check the js folder and PHP files in the main directory. -->
-	<file>.</file>
-	<exclude-pattern>/DataTables/</exclude-pattern>
-	<exclude-pattern>/languages/</exclude-pattern>
-	<exclude-pattern>/styles/</exclude-pattern>
 
 	<!-- Default tab width for indentation fixes and such. -->
 	<arg name="tab-width" value="4"/>
