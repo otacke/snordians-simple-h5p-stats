@@ -6,7 +6,7 @@
  * Text Domain: snordians-simple-h5p-stats
  * Domain Path: /languages
  * Description: Track hits on H5P content
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Oliver Tacke
  * Author URI: https://www.olivertacke.de
  * License: MIT
@@ -18,7 +18,7 @@ namespace SNORDIANSSIMPLEH5PSTATS;
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 if ( ! defined( 'SNORDIANSSIMPLEH5PSTATS_VERSION' ) ) {
-	define( 'SNORDIANSSIMPLEH5PSTATS_VERSION', '1.0.1' );
+	define( 'SNORDIANSSIMPLEH5PSTATS_VERSION', '1.0.2' );
 }
 
 if ( ! defined( 'SNORDIANSSIMPLEH5PSTATS_PLUGIN_FILE' ) ) {

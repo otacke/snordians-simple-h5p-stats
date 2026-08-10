@@ -4,7 +4,7 @@ Tags: h5p, tracking, hits
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: MIT
 License URI: https://github.com/otacke/snordians-simple-h5p-stats/blob/master/LICENSE
 
