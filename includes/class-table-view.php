@@ -34,7 +34,7 @@ class Table_View {
 	 * Register admin menu item.
 	 */
 	public function register_menu() {
-		add_menu_page( 'Simple H5P Stats', 'Simple H5P Stats', 'view_simpleh5pstats_results', 'simpleh5pstats_options', array( $this, 'add_plugin_page' ), $this->menu_icon );
+		add_menu_page( 'Simple H5P Stats', 'Simple H5P Stats', Capability::CAPABILITY_VIEW_RESULTS, 'simpleh5pstats_options', array( $this, 'add_plugin_page' ), $this->menu_icon );
 	}
 
 	/**
@@ -106,8 +106,8 @@ class Table_View {
 			array(
 				'classDataTable'              => $this->class_datatable,
 				'buttonLabelDownload'         => esc_html__( 'Download', 'snordians-simple-h5p-stats' ),
-				'userCanDownloadResults'      => current_user_can( 'download_simpleh5pstats_results' ) ? '1' : '0',
-				'userCanDeleteResults'        => current_user_can( 'delete_simpleh5pstats_results' ) ? '1' : '0',
+				'userCanDownloadResults'      => current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ? '1' : '0',
+				'userCanDeleteResults'        => current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ? '1' : '0',
 				'languageData'                => $language_datatables,
 				'buttonLabelDelete'           => esc_html__( 'Delete', 'snordians-simple-h5p-stats' ),
 				'dialogTextDelete'            => esc_html__( 'Do you really want to delete all the data?', 'snordians-simple-h5p-stats' ),
@@ -136,7 +136,7 @@ class Table_View {
 			array(
 				'classDataTable'              => $this->class_datatable_aggregated,
 				'buttonLabelDownload'         => esc_html__( 'Download', 'snordians-simple-h5p-stats' ),
-				'userCanDownloadResults'      => current_user_can( 'download_simpleh5pstats_results' ) ? '1' : '0',
+				'userCanDownloadResults'      => current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ? '1' : '0',
 				'languageData'                => $language_datatables,
 				'columnNames'                 => array(
 					Database::$column_title_names['content_id']    ?? 'Content ID',
@@ -148,7 +148,7 @@ class Table_View {
 				'nonceGetTableData'           => wp_create_nonce( 'simpleh5pstats_nonce_get_aggregated_table_data' ),
 				'nonceGetColumnOptions'       => wp_create_nonce( 'simpleh5pstats_nonce_get_aggregated_column_options' ),
 				'nonceDownloadTableData'      => wp_create_nonce( 'simpleh5pstats_nonce_download_aggregated_table_data' ),
-				'userCanDeleteResults'        => current_user_can( 'delete_simpleh5pstats_results' ) ? '1' : '0',
+				'userCanDeleteResults'        => current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ? '1' : '0',
 				'buttonLabelDelete'           => esc_html__( 'Delete', 'snordians-simple-h5p-stats' ),
 				'dialogTextDelete'            => esc_html__( 'Do you really want to delete all the data?', 'snordians-simple-h5p-stats' ),
 				'dialogCancelLabel'           => esc_html__( 'Cancel', 'snordians-simple-h5p-stats' ),
@@ -163,7 +163,7 @@ class Table_View {
 	 * Render stats table admin page.
 	 */
 	public function add_plugin_page() {
-		if ( ! current_user_can( 'view_simpleh5pstats_results' ) ) {
+		if ( ! current_user_can( Capability::CAPABILITY_VIEW_RESULTS ) ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'snordians-simple-h5p-stats' ) );
 		}
 

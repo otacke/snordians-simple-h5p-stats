@@ -63,7 +63,7 @@ function delete_data() {
 		exit( json_encode( 'error' ) );
 	}
 
-	if ( ! current_user_can( 'delete_simpleh5pstats_results' ) ) {
+	if ( ! current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ) {
 		exit( json_encode( 'error' ) );
 	}
 
@@ -159,7 +159,7 @@ function serve_table_data( $nonce, $count_method, $filtered_count_method, $page_
 		wp_send_json( array( 'error' => 'bad_nonce' ), HTTP_FORBIDDEN );
 	}
 
-	if ( ! current_user_can( 'view_simpleh5pstats_results' ) ) {
+	if ( ! current_user_can( Capability::CAPABILITY_VIEW_RESULTS ) ) {
 		wp_send_json( array( 'error' => 'forbidden' ), HTTP_FORBIDDEN );
 	}
 
@@ -200,7 +200,7 @@ function get_column_options_data() {
 		wp_send_json_error( 'bad_nonce', HTTP_FORBIDDEN );
 	}
 
-	if ( ! current_user_can( 'view_simpleh5pstats_results' ) ) {
+	if ( ! current_user_can( Capability::CAPABILITY_VIEW_RESULTS ) ) {
 		wp_send_json_error( 'forbidden', HTTP_FORBIDDEN );
 	}
 
@@ -215,7 +215,7 @@ function download_table_data() {
 		wp_die( esc_html__( 'Security check failed.', 'snordians-simple-h5p-stats' ) );
 	}
 
-	if ( ! current_user_can( 'download_simpleh5pstats_results' ) ) {
+	if ( ! current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ) {
 		wp_die( esc_html__( 'You do not have permission to download data.', 'snordians-simple-h5p-stats' ) );
 	}
 
@@ -254,7 +254,7 @@ function get_aggregated_column_options_data() {
 		wp_send_json_error( 'bad_nonce', HTTP_FORBIDDEN );
 	}
 
-	if ( ! current_user_can( 'view_simpleh5pstats_results' ) ) {
+	if ( ! current_user_can( Capability::CAPABILITY_VIEW_RESULTS ) ) {
 		wp_send_json_error( 'forbidden', HTTP_FORBIDDEN );
 	}
 
@@ -269,7 +269,7 @@ function download_aggregated_table_data() {
 		wp_die( esc_html__( 'Security check failed.', 'snordians-simple-h5p-stats' ) );
 	}
 
-	if ( ! current_user_can( 'download_simpleh5pstats_results' ) ) {
+	if ( ! current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ) {
 		wp_die( esc_html__( 'You do not have permission to download data.', 'snordians-simple-h5p-stats' ) );
 	}
 
