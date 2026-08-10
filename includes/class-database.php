@@ -506,7 +506,7 @@ class Database {
 			if ( '' !== (string) $col_search && isset( $column_map[ (int) $col_index ] ) ) {
 				// For column index 2 (total_hits), use HAVING since it is an aggregate.
 				if ( 2 === (int) $col_index ) {
-					$having[] = 'SUM(mst.hits) = %s';
+					$having[] = 'SUM(mst.hits) = %d';
 					$havingParams[] = $col_search;
 				} else {
 					$conditions[] = $column_map[ (int) $col_index ] . ' = %s';
@@ -683,7 +683,7 @@ class Database {
 		$result = $wpdb->get_var(
 			$wpdb->prepare(
 				'SELECT id FROM %i WHERE slug = %s',
-				$wpdb->prefix . 'h5p_contents',
+				self::$table_h5p_content_types,
 				$slug
 			)
 		);
