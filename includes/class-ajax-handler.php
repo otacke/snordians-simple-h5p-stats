@@ -179,12 +179,14 @@ function serve_table_data( $nonce, $count_method, $filtered_count_method, $page_
 		}
 	}
 
-	wp_send_json( array(
-		'draw'            => $request['draw'],
-		'recordsTotal'    => $total,
-		'recordsFiltered' => $filtered,
-		'data'            => $data,
-	) );
+	wp_send_json(
+		array(
+			'draw'            => $request['draw'],
+			'recordsTotal'    => $total,
+			'recordsFiltered' => $filtered,
+			'data'            => $data,
+		)
+	);
 }
 
 /**

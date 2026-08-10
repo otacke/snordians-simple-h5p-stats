@@ -6,7 +6,7 @@
  * Text Domain: snordians-simple-h5p-stats
  * Domain Path: /languages
  * Description: Track hits on H5P content
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Oliver Tacke
  * Author URI: https://www.olivertacke.de
  * License: MIT
@@ -18,7 +18,7 @@ namespace SNORDIANSSIMPLEH5PSTATS;
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 if ( ! defined( 'SNORDIANSSIMPLEH5PSTATS_VERSION' ) ) {
-	define( 'SNORDIANSSIMPLEH5PSTATS_VERSION', '1.0.0' );
+	define( 'SNORDIANSSIMPLEH5PSTATS_VERSION', '1.0.1' );
 }
 
 if ( ! defined( 'SNORDIANSSIMPLEH5PSTATS_PLUGIN_FILE' ) ) {
@@ -65,8 +65,8 @@ function init() {
 	$simpleh5pstats_options = new Options;
 
 	// Ensure that configuration is set
-	$upload_dir  = wp_upload_dir();
-	$path        = $upload_dir['basedir'] . '/snordians-simple-h5p-stats/simpleh5pstats-config.js';
+	$upload_dir = wp_upload_dir();
+	$path       = $upload_dir['basedir'] . '/snordians-simple-h5p-stats/simpleh5pstats-config.js';
 	if ( ! file_exists( $path ) ) {
 		$config_data = get_option( 'simpleh5pstats_option' );
 		Options::update_config_file( $config_data );
@@ -172,10 +172,10 @@ function alter_h5p_scripts( &$scripts, $libraries, $embed_type ) {
 	$server_http_referrer       = isset( $_SERVER['HTTP_REFERER'] ) ? wp_unslash( $_SERVER['HTTP_REFERER'] ) : '';
 	$server_http_sec_fetch_site = isset( $_SERVER['HTTP_SEC_FETCH_SITE'] ) ? wp_unslash( $_SERVER['HTTP_SEC_FETCH_SITE'] ) : '';
 
-	$is_embed       = H5P_Script_Handler::is_embedded( $server_request_uri );
-	$is_admin_h5p_view = H5P_Script_Handler::is_admin_h5p_view( $server_request_uri );
+	$is_embed             = H5P_Script_Handler::is_embedded( $server_request_uri );
+	$is_admin_h5p_view    = H5P_Script_Handler::is_admin_h5p_view( $server_request_uri );
 	$is_admin_post_iframe = H5P_Script_Handler::is_admin_editing_post( $server_http_referrer );
-	$is_same_origin = H5P_Script_Handler::is_same_origin( $server_http_sec_fetch_site );
+	$is_same_origin       = H5P_Script_Handler::is_same_origin( $server_http_sec_fetch_site );
 
 	if ( H5P_Script_Handler::should_skip_admin_access( $is_admin_h5p_view, $is_admin_post_iframe ) ) {
 		return;

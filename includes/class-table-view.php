@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * Display and handle settings page
  *
  * @package SNORDIANSSIMPLEH5PSTATS
-  */
+ */
 class Table_View {
 	/** @var string DataTable container ID. */
 	private $class_datatable = 'simpleh5pstats-data-table';
@@ -108,28 +108,28 @@ class Table_View {
 			'BuildSimpleH5PStatsTable',
 			'simpleh5pstatsByDateDataTable',
 			array(
-				'classDataTable'              => $this->class_datatable,
-				'buttonLabelDownload'         => esc_html__( 'Download', 'snordians-simple-h5p-stats' ),
-				'userCanDownloadResults'      => current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ? '1' : '0',
-				'userCanDeleteResults'        => current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ? '1' : '0',
-				'languageData'                => $language_datatables,
-				'buttonLabelDelete'           => esc_html__( 'Delete', 'snordians-simple-h5p-stats' ),
-				'dialogTextDelete'            => esc_html__( 'Do you really want to delete all the data?', 'snordians-simple-h5p-stats' ),
-				'dialogCancelLabel'           => esc_html__( 'Cancel', 'snordians-simple-h5p-stats' ),
-				'dialogConfirmLabel'          => esc_html__( 'OK', 'snordians-simple-h5p-stats' ),
-				'errorMessage'                => esc_html__( 'Sorry, something went wrong with deleting the data.', 'snordians-simple-h5p-stats' ),
-				'wpAJAXurl'                   => admin_url( 'admin-ajax.php' ),
-				'nonce'                       => wp_create_nonce( 'simpleh5pstats_nonce_delete_data' ),
-				'nonceGetTableData'           => wp_create_nonce( 'simpleh5pstats_nonce_get_table_data' ),
-				'nonceGetColumnOptions'       => wp_create_nonce( 'simpleh5pstats_nonce_get_column_options' ),
-				'nonceDownloadTableData'      => wp_create_nonce( 'simpleh5pstats_nonce_download_table_data' ),
-				'columnNames'                 => array(
-					Database::$column_title_names['content_id']    ?? 'H5P Content ID',
+				'classDataTable'         => $this->class_datatable,
+				'buttonLabelDownload'    => esc_html__( 'Download', 'snordians-simple-h5p-stats' ),
+				'userCanDownloadResults' => current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ? '1' : '0',
+				'userCanDeleteResults'   => current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ? '1' : '0',
+				'languageData'           => $language_datatables,
+				'buttonLabelDelete'      => esc_html__( 'Delete', 'snordians-simple-h5p-stats' ),
+				'dialogTextDelete'       => esc_html__( 'Do you really want to delete all the data?', 'snordians-simple-h5p-stats' ),
+				'dialogCancelLabel'      => esc_html__( 'Cancel', 'snordians-simple-h5p-stats' ),
+				'dialogConfirmLabel'     => esc_html__( 'OK', 'snordians-simple-h5p-stats' ),
+				'errorMessage'           => esc_html__( 'Sorry, something went wrong with deleting the data.', 'snordians-simple-h5p-stats' ),
+				'wpAJAXurl'              => admin_url( 'admin-ajax.php' ),
+				'nonce'                  => wp_create_nonce( 'simpleh5pstats_nonce_delete_data' ),
+				'nonceGetTableData'      => wp_create_nonce( 'simpleh5pstats_nonce_get_table_data' ),
+				'nonceGetColumnOptions'  => wp_create_nonce( 'simpleh5pstats_nonce_get_column_options' ),
+				'nonceDownloadTableData' => wp_create_nonce( 'simpleh5pstats_nonce_download_table_data' ),
+				'columnNames'            => array(
+					Database::$column_title_names['content_id'] ?? 'H5P Content ID',
 					Database::$column_title_names['content_title'] ?? 'Content Title',
-					Database::$column_title_names['date']          ?? 'Date',
-					Database::$column_title_names['hits']          ?? 'Hits',
+					Database::$column_title_names['date'] ?? 'Date',
+					Database::$column_title_names['hits'] ?? 'Hits',
 				),
-				'defaultOrderColumn'          => DATATABLES_DEFAULT_ORDER_COLUMN,
+				'defaultOrderColumn'     => DATATABLES_DEFAULT_ORDER_COLUMN,
 			)
 		);
 
@@ -138,27 +138,27 @@ class Table_View {
 			'BuildSimpleH5PStatsTable',
 			'simpleh5pstatsAggregatedDataTable',
 			array(
-				'classDataTable'              => $this->class_datatable_aggregated,
-				'buttonLabelDownload'         => esc_html__( 'Download', 'snordians-simple-h5p-stats' ),
-				'userCanDownloadResults'      => current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ? '1' : '0',
-				'languageData'                => $language_datatables,
-				'columnNames'                 => array(
-					Database::$column_title_names['content_id']    ?? 'Content ID',
+				'classDataTable'         => $this->class_datatable_aggregated,
+				'buttonLabelDownload'    => esc_html__( 'Download', 'snordians-simple-h5p-stats' ),
+				'userCanDownloadResults' => current_user_can( Capability::CAPABILITY_DOWNLOAD_RESULTS ) ? '1' : '0',
+				'languageData'           => $language_datatables,
+				'columnNames'            => array(
+					Database::$column_title_names['content_id'] ?? 'Content ID',
 					Database::$column_title_names['content_title'] ?? 'Content Title',
-					Database::$column_title_names['total_hits']    ?? 'Total Hits',
+					Database::$column_title_names['total_hits'] ?? 'Total Hits',
 				),
-				'defaultOrderColumn'          => DATATABLES_DEFAULT_ORDER_COLUMN,
-				'wpAJAXurl'                   => admin_url( 'admin-ajax.php' ),
-				'nonceGetTableData'           => wp_create_nonce( 'simpleh5pstats_nonce_get_aggregated_table_data' ),
-				'nonceGetColumnOptions'       => wp_create_nonce( 'simpleh5pstats_nonce_get_aggregated_column_options' ),
-				'nonceDownloadTableData'      => wp_create_nonce( 'simpleh5pstats_nonce_download_aggregated_table_data' ),
-				'userCanDeleteResults'        => current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ? '1' : '0',
-				'buttonLabelDelete'           => esc_html__( 'Delete', 'snordians-simple-h5p-stats' ),
-				'dialogTextDelete'            => esc_html__( 'Do you really want to delete all the data?', 'snordians-simple-h5p-stats' ),
-				'dialogCancelLabel'           => esc_html__( 'Cancel', 'snordians-simple-h5p-stats' ),
-				'dialogConfirmLabel'          => esc_html__( 'OK', 'snordians-simple-h5p-stats' ),
-				'nonce'                       => wp_create_nonce( 'simpleh5pstats_nonce_delete_data' ),
-				'actionDownload'              => 'simpleh5pstats_download_aggregated_table_data',
+				'defaultOrderColumn'     => DATATABLES_DEFAULT_ORDER_COLUMN,
+				'wpAJAXurl'              => admin_url( 'admin-ajax.php' ),
+				'nonceGetTableData'      => wp_create_nonce( 'simpleh5pstats_nonce_get_aggregated_table_data' ),
+				'nonceGetColumnOptions'  => wp_create_nonce( 'simpleh5pstats_nonce_get_aggregated_column_options' ),
+				'nonceDownloadTableData' => wp_create_nonce( 'simpleh5pstats_nonce_download_aggregated_table_data' ),
+				'userCanDeleteResults'   => current_user_can( Capability::CAPABILITY_DELETE_RESULTS ) ? '1' : '0',
+				'buttonLabelDelete'      => esc_html__( 'Delete', 'snordians-simple-h5p-stats' ),
+				'dialogTextDelete'       => esc_html__( 'Do you really want to delete all the data?', 'snordians-simple-h5p-stats' ),
+				'dialogCancelLabel'      => esc_html__( 'Cancel', 'snordians-simple-h5p-stats' ),
+				'dialogConfirmLabel'     => esc_html__( 'OK', 'snordians-simple-h5p-stats' ),
+				'nonce'                  => wp_create_nonce( 'simpleh5pstats_nonce_delete_data' ),
+				'actionDownload'         => 'simpleh5pstats_download_aggregated_table_data',
 			)
 		);
 	}

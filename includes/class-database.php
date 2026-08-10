@@ -122,39 +122,45 @@ class Database {
 		$date = current_time( 'Y-m-d' );
 
 		if ( '' !== $visitor_id && Options::is_unique_hits_enabled() ) {
-			$exists = $wpdb->get_var( $wpdb->prepare(
-				'SELECT 1 FROM %i
+			$exists = $wpdb->get_var(
+				$wpdb->prepare(
+					'SELECT 1 FROM %i
 				 WHERE content_id = %d AND date = %s AND visitor_id = %s
 				 LIMIT 1',
-				self::$table_visitors,
-				$content_id,
-				$date,
-				$visitor_id
-			) );
+					self::$table_visitors,
+					$content_id,
+					$date,
+					$visitor_id
+				)
+			);
 
 			if ( $exists ) {
 				return;
 			}
 		}
 
-		$wpdb->query( $wpdb->prepare(
-			'INSERT INTO %i (content_id, date, hits)
+		$wpdb->query(
+			$wpdb->prepare(
+				'INSERT INTO %i (content_id, date, hits)
 			 VALUES (%d, %s, 1)
 			 ON DUPLICATE KEY UPDATE hits = hits + 1',
-			self::$table_hits,
-			$content_id,
-			$date
-		) );
+				self::$table_hits,
+				$content_id,
+				$date
+			)
+		);
 
 		if ( '' !== $visitor_id ) {
-			$wpdb->query( $wpdb->prepare(
-				'INSERT IGNORE INTO %i (content_id, date, visitor_id)
+			$wpdb->query(
+				$wpdb->prepare(
+					'INSERT IGNORE INTO %i (content_id, date, visitor_id)
 				 VALUES (%d, %s, %s)',
-				self::$table_visitors,
-				$content_id,
-				$date,
-				$visitor_id
-			) );
+					self::$table_visitors,
+					$content_id,
+					$date,
+					$visitor_id
+				)
+			);
 		}
 
 		return $wpdb->insert_id;
@@ -167,11 +173,13 @@ class Database {
 	public static function clean_old_visitors() {
 		global $wpdb;
 
-		$wpdb->query( $wpdb->prepare(
-			'DELETE FROM %i WHERE date != %s',
-			self::$table_visitors,
-			current_time( 'Y-m-d' )
-		) );
+		$wpdb->query(
+			$wpdb->prepare(
+				'DELETE FROM %i WHERE date != %s',
+				self::$table_visitors,
+				current_time( 'Y-m-d' )
+			)
+		);
 	}
 
 	/**
@@ -204,18 +212,20 @@ class Database {
 		// $extra['where'] only ever contains whitelisted column names and %s/%d placeholders (never raw values);
 		// build_search_where() supplies the matching values via $extra['params'], and $params length is derived from it.
 		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-		return $wpdb->get_results( $wpdb->prepare(
-			'SELECT
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT
 				     mst.content_id, cnt.title AS content_title, mst.date, mst.hits
 				   FROM
 				     %i AS mst
 				   LEFT JOIN
 				     %i AS cnt ON mst.content_id = cnt.id'
-			. $extra['where'] .
-			' ORDER BY ' . $order_col . ' ' . $order_dir .
-			' LIMIT %d, %d',
-			...$params
-		) );
+				. $extra['where'] .
+				' ORDER BY ' . $order_col . ' ' . $order_dir .
+				' LIMIT %d, %d',
+				...$params
+			)
+		);
 		// phpcs:enable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
@@ -248,15 +258,17 @@ class Database {
 		// $extra['where'] only ever contains whitelisted column names and %s/%d placeholders (never raw values);
 		// build_search_where() supplies the matching values via $extra['params'], and $params length is derived from it.
 		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-		return (int) $wpdb->get_var( $wpdb->prepare(
-			'SELECT COUNT(*)
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COUNT(*)
 				   FROM
 				     %i AS mst
 				   LEFT JOIN
 				     %i AS cnt ON mst.content_id = cnt.id'
-			. $extra['where'],
-			...$params
-		) );
+				. $extra['where'],
+				...$params
+			)
+		);
 		// phpcs:enable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
@@ -332,18 +344,20 @@ class Database {
 		$options            = array();
 
 		foreach ( $column_map as $index => $col ) {
-			$results = $wpdb->get_results( $wpdb->prepare(
-				'SELECT DISTINCT %i AS val
+			$results = $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT DISTINCT %i AS val
 					 FROM
 					   %i AS mst
 					LEFT JOIN
 					  %i AS cnt ON mst.content_id = cnt.id
 					ORDER BY val
 					LIMIT 500',
-				$col,
-				self::$table_hits,
-				self::$table_h5p_content_types
-			) );
+					$col,
+					self::$table_hits,
+					self::$table_h5p_content_types
+				)
+			);
 
 			$options[ $index ] = array_values(
 				array_map(
@@ -413,17 +427,19 @@ class Database {
 		// $extra['where']/$extra['having'] only ever contain whitelisted column names and %s/%d placeholders (never raw values);
 		// build_aggregated_search_where() supplies the matching values via $extra['params']/$extra['having_params'], and $params length is derived from them.
 		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-		return $wpdb->get_results( $wpdb->prepare(
-			'SELECT mst.content_id, cnt.title AS content_title, SUM(mst.hits) AS total_hits
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT mst.content_id, cnt.title AS content_title, SUM(mst.hits) AS total_hits
 				 FROM %i AS mst
 				LEFT JOIN %i AS cnt ON mst.content_id = cnt.id'
-			 . $extra['where'] .
-			 ' GROUP BY mst.content_id, cnt.title' .
-			 ( '' !== $extra['having'] ? $extra['having'] : '' ) .
-			 ' ORDER BY ' . $order_col . ' ' . $order_dir .
-			 ' LIMIT %d, %d',
-			...$params
-		) );
+				. $extra['where'] .
+				' GROUP BY mst.content_id, cnt.title' .
+				( '' !== $extra['having'] ? $extra['having'] : '' ) .
+				' ORDER BY ' . $order_col . ' ' . $order_dir .
+				' LIMIT %d, %d',
+				...$params
+			)
+		);
 		// phpcs:enable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
@@ -460,16 +476,18 @@ class Database {
 		// $extra['where']/$extra['having'] only ever contain whitelisted column names and %s/%d placeholders (never raw values);
 		// build_aggregated_search_where() supplies the matching values via $extra['params']/$extra['having_params'], and $params length is derived from them.
 		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-		return (int) $wpdb->get_var( $wpdb->prepare(
-			'SELECT COUNT(DISTINCT mst.content_id)
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COUNT(DISTINCT mst.content_id)
 			   FROM
 			     %i AS mst
 			   LEFT JOIN
 			     %i AS cnt ON mst.content_id = cnt.id'
-			. $extra['where'] .
-			( '' !== $extra['having'] ? $extra['having'] : '' ),
-			...$params
-		) );
+				. $extra['where'] .
+				( '' !== $extra['having'] ? $extra['having'] : '' ),
+				...$params
+			)
+		);
 		// phpcs:enable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 	}
 
@@ -485,20 +503,20 @@ class Database {
 	private static function build_aggregated_search_where( $search, $col_searches ) {
 		global $wpdb;
 
-		$column_map = self::get_aggregated_column_sql_map();
-		$conditions = array();
-		$params     = array();
-		$having     = array();
+		$column_map   = self::get_aggregated_column_sql_map();
+		$conditions   = array();
+		$params       = array();
+		$having       = array();
 		$havingParams = array();
 
 		if ( '' !== (string) $search ) {
-			$like    = '%' . $wpdb->esc_like( $search ) . '%';
+			$like = '%' . $wpdb->esc_like( $search ) . '%';
 			// Only search content_id and content_title (indices 0, 1), NOT the SUM(hits) aggregate.
-			$clauses = array(
+			$clauses      = array(
 				'mst.content_id LIKE %s',
 				'cnt.title LIKE %s',
 			);
-			$params  = array( $like, $like );
+			$params       = array( $like, $like );
 			$conditions[] = '(' . implode( ' OR ', $clauses ) . ')';
 		}
 
@@ -506,11 +524,11 @@ class Database {
 			if ( '' !== (string) $col_search && isset( $column_map[ (int) $col_index ] ) ) {
 				// For column index 2 (total_hits), use HAVING since it is an aggregate.
 				if ( 2 === (int) $col_index ) {
-					$having[] = 'SUM(mst.hits) = %d';
+					$having[]       = 'SUM(mst.hits) = %d';
 					$havingParams[] = $col_search;
 				} else {
 					$conditions[] = $column_map[ (int) $col_index ] . ' = %s';
-					$params[] = $col_search;
+					$params[]     = $col_search;
 				}
 			}
 		}
@@ -523,10 +541,10 @@ class Database {
 			: ' HAVING ' . implode( ' AND ', $having );
 
 		return array(
-			'where'          => $where,
-			'params'         => $params,
-			'having'         => $having,
-			'having_params'  => $havingParams,
+			'where'         => $where,
+			'params'        => $params,
+			'having'        => $having,
+			'having_params' => $havingParams,
 		);
 	}
 
@@ -542,18 +560,20 @@ class Database {
 		$options = array();
 
 		// Column 1: content_title (distinct titles from joined table).
-			$results = $wpdb->get_results( $wpdb->prepare(
-				'SELECT DISTINCT cnt.title AS val
+			$results = $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT DISTINCT cnt.title AS val
 					 FROM
 					   %i AS mst
 					LEFT JOIN
 					  %i AS cnt ON mst.content_id = cnt.id
 					ORDER BY val
 					LIMIT 500',
-				self::$table_hits,
-				self::$table_h5p_content_types
-			) );
-		$options[1] = array_values(
+					self::$table_hits,
+					self::$table_h5p_content_types
+				)
+			);
+		$options[1]  = array_values(
 			array_map(
 				function( $row ) {
 					return (string) $row->val;
@@ -573,17 +593,19 @@ class Database {
 	public static function get_aggregated_complete_table() {
 		global $wpdb;
 
-			return $wpdb->get_results( $wpdb->prepare(
-				'SELECT mst.content_id, cnt.title AS content_title, SUM(mst.hits) AS total_hits
+			return $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT mst.content_id, cnt.title AS content_title, SUM(mst.hits) AS total_hits
 					FROM
 					  %i AS mst
 					LEFT JOIN
 					  %i AS cnt ON mst.content_id = cnt.id
 					GROUP BY mst.content_id, cnt.title
 					ORDER BY cnt.title',
-				self::$table_hits,
-				self::$table_h5p_content_types
-			) );
+					self::$table_hits,
+					self::$table_h5p_content_types
+				)
+			);
 	}
 
 	/**
@@ -593,16 +615,18 @@ class Database {
 	public static function get_complete_table() {
 		global $wpdb;
 
-			return $wpdb->get_results( $wpdb->prepare(
-				'SELECT mst.content_id, cnt.title AS content_title, mst.date, mst.hits
+			return $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT mst.content_id, cnt.title AS content_title, mst.date, mst.hits
 					FROM
 					  %i AS mst
 					LEFT JOIN
 					  %i AS cnt ON mst.content_id = cnt.id
 					ORDER BY cnt.title',
-				self::$table_hits,
-				self::$table_h5p_content_types
-			) );
+					self::$table_hits,
+					self::$table_h5p_content_types
+				)
+			);
 	}
 
 	/**
@@ -633,15 +657,17 @@ class Database {
 		}
 
 		// Get ID, title and library name
-			$content_types = $wpdb->get_results( $wpdb->prepare(
-				'SELECT CT.id AS ct_id, CT.title AS ct_title, LIB.title AS lib_title
+			$content_types = $wpdb->get_results(
+				$wpdb->prepare(
+					'SELECT CT.id AS ct_id, CT.title AS ct_title, LIB.title AS lib_title
 					FROM
 					  %i AS CT,
 					  %i AS LIB
 					WHERE CT.library_id = LIB.id',
-				self::$table_h5p_content_types,
-				self::$table_h5p_libraries
-			) );
+					self::$table_h5p_content_types,
+					self::$table_h5p_libraries
+				)
+			);
 
 		return json_decode( json_encode( $content_types ), true );
 	}
@@ -666,8 +692,8 @@ class Database {
 	 */
 	static function init() {
 		global $wpdb;
-		self::$table_hits            = $wpdb->prefix . 'simpleh5pstats_hits';
-		self::$table_visitors        = $wpdb->prefix . 'simpleh5pstats_visitors';
+		self::$table_hits              = $wpdb->prefix . 'simpleh5pstats_hits';
+		self::$table_visitors          = $wpdb->prefix . 'simpleh5pstats_visitors';
 		self::$table_h5p_content_types = $wpdb->prefix . 'h5p_contents';
 	}
 

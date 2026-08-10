@@ -143,7 +143,7 @@ class H5P_Script_Handler {
 	 */
 	public static function add_scripts( &$scripts ) {
 		$upload_dir = wp_upload_dir();
-		$path = $upload_dir['basedir'] . '/snordians-simple-h5p-stats/simpleh5pstats-config.js';
+		$path       = $upload_dir['basedir'] . '/snordians-simple-h5p-stats/simpleh5pstats-config.js';
 
 		if ( file_exists( $path ) ) {
 			$scripts[] = (object) array(
