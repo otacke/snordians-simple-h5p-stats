@@ -26,6 +26,6 @@
   "browserslist": "> 0.5%, last 3 versions, Firefox ESR, not dead",
   "dependencies": {
     "datatables.net-buttons-dt": "^4.1.2",
-    "datatables.net-dt": "^3.1.2"
+    "datatables.net-dt": "^3.1.3"
   }
 }
